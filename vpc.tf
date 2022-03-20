@@ -11,8 +11,5 @@ module "stef-vpc" {
   enable_nat_gateway = true
   enable_vpn_gateway = true
 
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
+  tags = var.tags
 }

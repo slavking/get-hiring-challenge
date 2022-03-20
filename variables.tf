@@ -16,3 +16,7 @@ variable "instance-size" {
   default     = "t2.micro"
   description = "Instance size - default t2.micro"
 }
+
+variable "tags" {
+  description = "tags to add to resources"
+}
