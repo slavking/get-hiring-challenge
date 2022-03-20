@@ -10,7 +10,7 @@ data "aws_ami" "latest_amazon_linux_2" {
   }
   filter {
     name   = "architecture"
-    values = [ "x86_64" ]
+    values = ["x86_64"]
   }
   owners = ["amazon"]
 }
@@ -18,11 +18,41 @@ data "aws_ami" "latest_amazon_linux_2" {
 
 locals {
   latest_azn_lnx_ami = data.aws_ami.latest_amazon_linux_2.id
-  public_subnet_id = module.stef-vpc.public_subnets
+  public_subnet_id   = module.stef-vpc.public_subnets
+  vpc_id             = module.stef-vpc.vpc_id
+  key_name           = "stef-pubkey"
+  stef-sg            = "stef-security-group"
 }
 
-resource "stef-sg" "s" {
+resource "aws_security_group" "sg" {
+  name   = local.stef-sg
+  vpc_id = local.vpc_id
+}
 
+resource "aws_security_group_rule" "ingress_ssh" {
+  type      = "ingress"
+  from_port = 22
+  to_port   = 22
+  protocol  = "tcp"
+  cidr_blocks = [
+    "0.0.0.0/0"
+  ]
+
+  security_group_id = aws_security_group.sg.id
+}
+
+resource "aws_security_group_rule" "egress" {
+  type        = "egress"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+
+  security_group_id = aws_security_group.sg.id
+}
+resource "aws_key_pair" "ssh" {
+  key_name   = local.key_name
+  public_key = file("./pubkey/id_rsa.pub")
 }
 
 module "ec2_instance" {
@@ -34,9 +64,9 @@ module "ec2_instance" {
 
   ami                    = local.latest_azn_lnx_ami
   instance_type          = var.instance-size
-  key_name               = "user1"
+  key_name               = local.key_name
   monitoring             = true
-  vpc_security_group_ids = var.stef-sg
+  vpc_security_group_ids = aws_security_group.sg.id
   subnet_id              = local.public_subnet_id
   tags = {
     Terraform   = "true"
