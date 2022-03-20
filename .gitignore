@@ -1,0 +1,7 @@
+*.iml
+.idea/*
+!.idea/externalDependencies.xml
+!.idea/codeStyles/Project.xml
+!.idea/codeStyles/codeStyleConfig.xml
+logs/
+*.log
