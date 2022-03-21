@@ -16,7 +16,8 @@ resource "aws_sns_topic_subscription" "sns_subscribe_stef_email" {
 
 locals {
   sns_topic_name = "stef-cron-topic"
-  lambda_env = { SNS_TOPIC_NAME = "${module.sns_topic.sns_topic_name}" }
+  lambda_env = { SNS_TOPIC_ARN = "${module.sns_topic.sns_topic_arn}"
+  SNS_TOPIC_NAME = "${module.sns_topic.sns_topic_name}" }
 }
 
 
