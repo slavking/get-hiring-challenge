@@ -32,3 +32,7 @@ Simple Notification Service (SNS).
 AWS Lambda koristiti za izvrsavanje koda, EventBridge/CloudWatch koristiti za zakazivanje periodicnog izvrsavanja 
 datog programa, a SNS koristiti za objavljivanje date poruke u okviru odredjenog topic-a. 
 Consumeri (sa odredjenim email-om) je potrebno da se rucno subscribuju na dati topic - ovaj deo logike nije potrebno implementirati u samom kodu.
+
+
+https://aws.amazon.com/premiumsupport/knowledge-center/sns-email-notifications-eventbridge/
+https://registry.terraform.io/modules/Olgoetz/cron-to-lambda/aws/latest
