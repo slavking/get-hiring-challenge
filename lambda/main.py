@@ -11,12 +11,11 @@ Send message to SNS topic in environment variables
 
 
 def lambda_handler(event, context):
-    notification = "Hello world!"
+    notification: str = "Hello world!"
     client = boto3.client("sns")
     response = client.publish(
         TargetArn=sns_topic_arn,
-        Message=json.dumps({"default": notification}),
-        MessageStructure="json",
+        Message=notification
     )
 
     return {"statusCode": 200, "body": json.dumps(response)}
