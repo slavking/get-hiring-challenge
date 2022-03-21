@@ -13,6 +13,9 @@ logs/
 *.tfstate
 *.tfstate.*
 
+#Terraform plan files
+plan.txt
+
 # Crash log files
 crash.log
 crash.*.log

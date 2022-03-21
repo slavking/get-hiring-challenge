@@ -7,6 +7,11 @@ variable "s3_key" {
   description = "The s3 key for your Lambda deployment package."
 }
 
+variable "local" {
+  default = true
+  description = "Use local function or an existing one, local supplies filename, existing supplies s3_key and s3_bucket"
+}
+
 variable "filename" {
   description = "filename"
 }

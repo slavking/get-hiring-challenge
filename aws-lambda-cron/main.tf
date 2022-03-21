@@ -1,7 +1,7 @@
 locals {
-  filename  = var.filename ? var.filename : null
-  s3_bucket = var.s3_bucket ? var.s3_bucket : null
-  s3_key    = var.s3_key ? var.s3_key : null
+  filename  = var.local ? var.filename : null
+  s3_bucket = !var.local  ? var.s3_bucket : null
+  s3_key    = !var.local ? var.s3_key : null
 }
 
 resource "aws_lambda_function" "lambda_function" {
