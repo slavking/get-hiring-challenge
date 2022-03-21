@@ -25,7 +25,7 @@ module "aws-lambda-cron" {
   source = "./aws-lambda-cron"
 
   function_name        = "stef-lambda-fuction"
-  filename             = "./lambda/main.py"
+  filename             = "./lambda/main.zip"
   handler              = "lambnda_handler"
   runtime              = "python3.8"
   lambda_cron_schedule = "cron(0 1 * * ? *)"
