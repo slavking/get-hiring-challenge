@@ -59,7 +59,7 @@ module "aws-lambda-cron" {
   lambda_cron_schedule = "cron(0 1 * * ? *)"
   lambda_env           = local.lambda_env
 
-  subnet_ids         = [module.stef-vpc.public_subnets[0]]
+  subnet_ids         = [module.stef-vpc.private_subnets[0]]
   security_group_ids = [aws_security_group.lambda-sg.id]
   # insert the 6 required variables here
   s3_bucket = null
