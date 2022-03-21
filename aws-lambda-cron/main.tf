@@ -1,7 +1,14 @@
+locals {
+  filename  = var.filename ? var.filename : null
+  s3_bucket = var.s3_bucket ? var.s3_bucket : null
+  s3_key    = var.s3_key ? var.s3_key : null
+}
+
 resource "aws_lambda_function" "lambda_function" {
-  count = "${var.s3_bucket && var.s3_key ? 1 : 0}"
-  s3_bucket     = "${var.s3_bucket ? var.s3_bucket : null}"
-  s3_key        = "${var.s3_key ? var.s3_key : null}"
+
+  s3_bucket     = local.s3_bucket
+  s3_key        = local.s3_key
+  filename      = local.filename
   function_name = var.function_name
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = var.handler
@@ -19,28 +26,6 @@ resource "aws_lambda_function" "lambda_function" {
   environment {
     variables = var.lambda_env
   }
-}
-
-resource "aws_lambda_function" "lambda_function" {
-count = "${var.filename  ? 1 : 0}"
-filename =      "${var.filename ? var.filename : null}"
-function_name = var.function_name
-role          = aws_iam_role.iam_for_lambda.arn
-handler       = var.handler
-runtime       = var.runtime
-timeout       = var.timeout
-memory_size   = var.memory_size
-layers        = [var.layer]
-tags          = var.tags
-
-vpc_config {
-subnet_ids         = var.subnet_ids
-security_group_ids = var.security_group_ids
-}
-
-environment {
-variables = var.lambda_env
-}
 }
 
 
