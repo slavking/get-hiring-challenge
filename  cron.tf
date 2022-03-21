@@ -54,7 +54,7 @@ module "aws-lambda-cron" {
   function_name        = "stef-lambda-fuction"
   filename             = "./lambda/main.zip"
   handler              = "main.lambda_handler" #filename.function_handler_name
-  timeout              = "14m"
+  timeout              = "900"
   runtime              = "python3.8"
   lambda_cron_schedule = "cron(0 1 * * ? *)"
   lambda_env           = local.lambda_env
