@@ -8,7 +8,7 @@ variable "s3_key" {
 }
 
 variable "local" {
-  default = true
+  default     = true
   description = "Use local function or an existing one, local supplies filename, existing supplies s3_key and s3_bucket"
 }
 

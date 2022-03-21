@@ -1,6 +1,6 @@
 locals {
   filename  = var.local ? var.filename : null
-  s3_bucket = !var.local  ? var.s3_bucket : null
+  s3_bucket = !var.local ? var.s3_bucket : null
   s3_key    = !var.local ? var.s3_key : null
 }
 

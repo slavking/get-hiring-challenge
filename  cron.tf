@@ -18,6 +18,33 @@ locals {
   sns_topic_name = "stef-cron-topic"
   lambda_env = { SNS_TOPIC_ARN = "${module.sns_topic.sns_topic_arn}"
   SNS_TOPIC_NAME = "${module.sns_topic.sns_topic_name}" }
+  lambda-sg = "stef-lmabda-sg"
+}
+
+
+resource "aws_security_group" "lambda-sg" {
+  name   = local.lambda-sg
+  vpc_id = local.vpc_id
+  tags   = var.tags
+
+  description = "Allow TLS inbound traffic"
+
+  ingress {
+    description = "all to VPC"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "all from VPC"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 }
 
 
@@ -26,13 +53,14 @@ module "aws-lambda-cron" {
 
   function_name        = "stef-lambda-fuction"
   filename             = "./lambda/main.zip"
-  handler              = "lambnda_handler"
+  handler              = "main.lambda_handler" #filename.function_handler_name
+  timeout              = "14m"
   runtime              = "python3.8"
   lambda_cron_schedule = "cron(0 1 * * ? *)"
   lambda_env           = local.lambda_env
 
   subnet_ids         = [module.stef-vpc.public_subnets[0]]
-  security_group_ids = [aws_security_group.sg.id]
+  security_group_ids = [aws_security_group.lambda-sg.id]
   # insert the 6 required variables here
   s3_bucket = null
   s3_key    = null
