@@ -30,3 +30,8 @@ variable "s3_bucket_name" {
   default     = "stefan-test-sync-bucket"
   description = "S3 bucket for Terraform state and miscellaneous items"
 }
+
+variable "user_subnet" {
+  description = "User defined subnet to allow SSH "
+  default = "87.116.164.0/26"
+}

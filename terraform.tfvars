@@ -9,4 +9,5 @@ tags = {
 }
 instance-size  = "t2.micro"
 s3_bucket_name = "stefan-test-sync-bucket"
+user_subnet =  "87.116.164.0/26" #SBB subnet
 
