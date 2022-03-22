@@ -1,4 +1,4 @@
-##Zadatak 1:
+## Zadatak 1:
 
 Napraviti EC2 instancu na AWS platformi koristeci sledece parametre:
 AMI: Amazon Linux 2 (64-bit)
@@ -20,7 +20,7 @@ Napomena: Obavezno koristiti IaC (Infrastructure as Code) tool po izboru (Terraf
 prethodno opisane infrastrukture.
 
 
-##Zadatak 2:
+## Zadatak 2:
 
 Napraviti u programskom jeziku po izboru (Python/PowerShell) program, koji salje sledecu poruku na email: "Hello, world!".
 Potrebno je da se data poruka salje jednom dnevno u 1h ujutru. Veci deo logike programa treba da bude implementiran preko AWS servisa.
