@@ -13,5 +13,6 @@ COPY *.tf ./
 COPY terraform.tfvars ./
 COPY run.sh ./
 COPY README.md ./
+RUN chmod +x ./run.sh
 
 ENTRYPOINT ["./run.sh"]
